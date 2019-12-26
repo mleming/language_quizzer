@@ -14,11 +14,11 @@
 import os,sys,csv,random,re,hashlib,json
 import unicodedata as ud
 
-blocksize           = 50 # Maximum position a word is pushed back in the queue
+blocksize           = 25 # Maximum position a word is pushed back in the queue
 		         # if you get it wrong or haven't gotten it right enough
 guess               = 2  # Number of times in a row you need to get the word
                          # correct before it's taken off the queue
-quiz_type           = "random" # "english","foreign","random"
+quiz_type           = "english" # "english","foreign","random"
                          # If random, you need to type it out enough times in
                          # both languages in order for it to be taken off the
                          # queue. If foreign or random, make sure you have a
@@ -39,7 +39,7 @@ except:
 	with open(csv_words_filename) as csv_file:
 	    csv_reader = csv.reader(csv_file, delimiter=',',quotechar='"')
 	    for row in csv_reader:
-		wordlist.append([row[0],row[1],0,0])
+		wordlist.append([row[0],row[1],guess-1,guess-1])
 	random.shuffle(wordlist)
 	with open(hashcache,'w') as outfile:
 		json.dump(wordlist, outfile)
